@@ -4,12 +4,9 @@ import PackageDescription
 let package = Package(
     name: "Monadic",
     products: [
-        .library(name: "Monadic", targets: ["Monadic"]),
-    ],
-    dependencies: [
-        .package(name: "MonadicMonadsEither", path: "Monads/Either"),
+        .library(name: "Monadic", targets: ["MonadicMonadsEither"]),
     ],
     targets: [
-        .target(name: "Monadic", dependencies: ["MonadicMonadsEither"]),
+        .target(name: "MonadicMonadsEither", path: "Monads/Either/Sources"),
     ]
 )
