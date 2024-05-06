@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Monadic",
+    name: "MonadicMonadsEither",
     products: [
-        .library(name: "Monadic-Monads-Either", targets: ["Monadic-Monads-Either"]),
+        .library(name: "MonadicMonadsEither", targets: ["MonadicMonadsEither"]),
     ],
     targets: [
-        .target(name: "Monadic-Monads-Either"),
-        .testTarget(name: "EitherTests", dependencies: ["Monadic-Monads-Either"]),
+        .target(name: "MonadicMonadsEither"),
+        .testTarget(name: "EitherTests", dependencies: ["MonadicMonadsEither"]),
     ]
 )
