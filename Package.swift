@@ -13,5 +13,10 @@ let package = Package(
     ],
     targets: [
         .target(name: "MonadicMonadsEither", path: "Monads/Either/Sources"),
+        .target(name: "Either"),
+        .testTarget(
+            name: "EitherTests",
+            dependencies: ["Either"]
+        )
     ]
 )
