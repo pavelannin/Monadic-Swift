@@ -186,7 +186,7 @@ public extension Either {
     ///     .fold(left: { "foo" }, right: { _ in "bar" }) // Result: "foo"
     /// ```
     func fold<Out>(
-        letft leftTransform: (Left) -> Out,
+        left leftTransform: (Left) -> Out,
         right rightTransform: (Right) -> Out
     ) -> Out {
         switch self {
@@ -218,7 +218,7 @@ public extension Either {
     ///     .fold(left: { "foo" }, right: { _ in "bar" }) // Result: "foo"
     /// ```
     func fold<Out>(
-        letft leftTransform: (Left) async -> Out,
+        left leftTransform: (Left) async -> Out,
         right rightTransform: (Right) async -> Out
     ) async -> Out {
         switch self {
