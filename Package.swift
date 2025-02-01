@@ -3,20 +3,17 @@ import PackageDescription
 
 let package = Package(
     name: "Monadic",
-    platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .driverKit(.v19)
-    ],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         .library(name: "Monadic", targets: ["MonadicMonadsEither"]),
+        .library(name: "Either", targets: ["MonadicEither"])
     ],
     targets: [
         .target(name: "MonadicMonadsEither", path: "Monads/Either/Sources"),
-        .target(name: "Either"),
+        .target(name: "MonadicEither"),
         .testTarget(
             name: "EitherTests",
-            dependencies: ["Either"]
+            dependencies: ["MonadicEither"]
         )
     ]
 )
