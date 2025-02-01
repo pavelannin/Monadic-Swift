@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Either
+@testable import MonadicEither
 
 final class EitherZipTest: XCTestCase {
     func testZip2() {
