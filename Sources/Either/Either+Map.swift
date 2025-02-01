@@ -461,6 +461,32 @@ public extension Either {
     }
 
     /// ###### Signature:
+    /// `Either<Left, Right>` -> `Either<Right, Left>`
+    ///
+    /// ###### EN:
+    /// The value of `Either.right` will be returned to `Either.left`, and the
+    /// value of `Either.left` will be returned to `Either.right`.
+    ///
+    /// ###### RU:
+    /// Значение `Either.right` будет возвращено в `Either.left`, а значение
+    /// `Either.left` будет возвращено в `Either.right`.
+    ///
+    /// ###### Example:
+    /// ```
+    /// Either<Int, Int>.right(1).swap() // Result: left(1)
+    /// Either<Int, Int>.left(1).swap() // Result: right(1)
+    /// ```
+    func swap() async -> Either<Right, Left> {
+        switch self {
+        case let .left(left):
+            return .right(left)
+
+        case let .right(right):
+            return .left(right)
+        }
+    }
+
+    /// ###### Signature:
     /// `Either<Left, Either<Left, Right>>` -> `Either<Left, Right>`
     ///
     /// ###### EN:
@@ -475,5 +501,22 @@ public extension Either {
     /// ```
     func flatten<Nested>() -> Either<Left, Nested> where Right == Either<Left, Nested> {
         self.flatMap { $0 }
+    }
+
+    /// ###### Signature:
+    /// `Either<Left, Either<Left, Right>>` -> `Either<Left, Right>`
+    ///
+    /// ###### EN:
+    /// Reduces nesting for `Either.right`.
+    ///
+    /// ###### RU:
+    /// Уменьшает вложенность для `Either.right`.
+    ///
+    /// ###### Example:
+    /// ```
+    /// Either<Int, Either<Int, Int>>.right(.right(1)).flatten() // Result: right(1)
+    /// ```
+    func flatten<Nested>() async -> Either<Left, Nested> where Right == Either<Left, Nested> {
+        await self.flatMap { $0 }
     }
 }

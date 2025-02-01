@@ -201,4 +201,85 @@ final class EitherMapTest: XCTestCase {
         let rightValue = await f(right)
         XCTAssertEqual(result, rightValue)
     }
+
+    func testFlatMapLeft() {
+        let result: Either<String, Int> = Either.left("foo")
+        func f(_ either: Either<Int, Int>) -> Either<String, Int> {
+            either.flatMapLeft { _ in result }
+        }
+
+        let left: Either<Int, Int> = .left(1)
+        XCTAssertEqual(result, f(left))
+
+        let right: Either<Int, Int> = .right(2)
+        XCTAssertEqual(.right(2), f(right))
+    }
+
+    func testFlatMapLeftAsync() async {
+        let result: Either<String, Int> = Either.left("foo")
+        func f(_ either: Either<Int, Int>) async -> Either<String, Int> {
+            let fetch: () async -> Either<String, Int> = { result }
+            return await either.flatMapLeft { _ in await fetch() }
+        }
+
+        let left: Either<Int, Int> = .left(1)
+        let leftValue = await f(left)
+        XCTAssertEqual(result, leftValue)
+
+        let right: Either<Int, Int> = .right(2)
+        let rightValue = await f(right)
+        XCTAssertEqual(.right(2), rightValue)
+    }
+
+    func testSwap() {
+        func f(_ either: Either<Int, Int>) -> Either<Int, Int> {
+            either.swap()
+        }
+
+        let left: Either<Int, Int> = .left(1)
+        XCTAssertEqual(.right(1), f(left))
+
+        let right: Either<Int, Int> = .right(2)
+        XCTAssertEqual(.left(2), f(right))
+    }
+
+    func testSwapAsync() async {
+        func f(_ either: Either<Int, Int>) async -> Either<Int, Int> {
+            return await either.swap()
+        }
+
+        let left: Either<Int, Int> = .left(1)
+        let leftValue = await f(left)
+        XCTAssertEqual(.right(1), leftValue)
+
+        let right: Either<Int, Int> = .right(2)
+        let rightValue = await f(right)
+        XCTAssertEqual(.left(2), rightValue)
+    }
+
+    func testFlatten() {
+        func f(_ either: Either<Int, Either<Int, Int>>) -> Either<Int, Int> {
+            either.flatten()
+        }
+
+        let left: Either<Int, Either<Int, Int>> = .left(1)
+        XCTAssertEqual(.left(1), f(left))
+
+        let right: Either<Int, Either<Int, Int>> = .right(.right(2))
+        XCTAssertEqual(.right(2), f(right))
+    }
+
+    func testFlattenAsync() async {
+        func f(_ either: Either<Int, Either<Int, Int>>) async -> Either<Int, Int> {
+            await either.flatten()
+        }
+
+        let left: Either<Int, Either<Int, Int>> = .left(1)
+        let leftValue = await f(left)
+        XCTAssertEqual(.left(1), leftValue)
+
+        let right: Either<Int, Either<Int, Int>> = .right(.right(2))
+        let rightValue = await f(right)
+        XCTAssertEqual(.right(2), rightValue)
+    }
 }
