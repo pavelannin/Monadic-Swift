@@ -6,14 +6,13 @@ let package = Package(
     platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         .library(name: "Monadic", targets: ["MonadicMonadsEither"]),
-        .library(name: "Either", targets: ["MonadicEither"])
+        .library(name: "Either", targets: ["MonadicEither"]),
+        .library(name: "Result", targets: ["MonadicResult"])
     ],
     targets: [
         .target(name: "MonadicMonadsEither", path: "Monads/Either/Sources"),
         .target(name: "MonadicEither"),
-        .testTarget(
-            name: "EitherTests",
-            dependencies: ["MonadicEither"]
-        )
+        .testTarget(name: "EitherTests", dependencies: ["MonadicEither"]),
+        .target(name: "MonadicResult"),
     ]
 )
