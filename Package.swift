@@ -7,12 +7,14 @@ let package = Package(
     products: [
         .library(name: "Monadic", targets: ["MonadicMonadsEither"]),
         .library(name: "Either", targets: ["MonadicEither"]),
-        .library(name: "Result", targets: ["MonadicResult"])
+        .library(name: "Result", targets: ["MonadicResult"]),
+        .library(name: "LCE", targets: ["MonadicLCE"]),
     ],
     targets: [
         .target(name: "MonadicMonadsEither", path: "Monads/Either/Sources"),
         .target(name: "MonadicEither"),
         .testTarget(name: "EitherTests", dependencies: ["MonadicEither"]),
         .target(name: "MonadicResult"),
+        .target(name: "MonadicLCE"),
     ]
 )
