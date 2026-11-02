@@ -25,3 +25,12 @@ public enum LCE<Loading, Content, Failure> {
     case content(Content)
     case error(Failure)
 }
+
+/// ###### EN:
+/// Allows `LCE` values to be transferred safely across concurrency domains when all three
+/// payload types — `Loading`, `Content`, and `Failure` — conform to `Sendable`.
+///
+/// ###### RU:
+/// Позволяет безопасно передавать значения `LCE` между контекстами конкурентного выполнения,
+/// если все три типа данных — `Loading`, `Content` и `Failure` — соответствуют `Sendable`.
+extension LCE: Sendable where Loading: Sendable, Content: Sendable, Failure: Sendable {}

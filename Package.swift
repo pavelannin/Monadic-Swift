@@ -16,5 +16,9 @@ let package = Package(
         .testTarget(name: "EitherTests", dependencies: ["MonadicEither"]),
         .target(name: "MonadicResult"),
         .target(name: "MonadicLCE"),
+        .testTarget(
+            name: "SendableTests",
+            dependencies: ["MonadicMonadsEither", "MonadicEither", "MonadicLCE", "MonadicResult"]
+        ),
     ]
 )

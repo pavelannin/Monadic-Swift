@@ -37,3 +37,12 @@ public enum Either<Left, Right> {
     /// Правое значение (для правильных значений) монады `Either`.
     case right(Right)
 }
+
+/// ###### EN:
+/// Allows `Either` values to be transferred safely across concurrency domains when both
+/// `Left` and `Right` conform to `Sendable`.
+///
+/// ###### RU:
+/// Позволяет безопасно передавать значения `Either` между контекстами конкурентного выполнения,
+/// если оба типа — `Left` и `Right` — соответствуют `Sendable`.
+extension Either: Sendable where Left: Sendable, Right: Sendable {}

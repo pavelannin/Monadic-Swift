@@ -11,7 +11,7 @@ public extension Either {
     ///
     ///###### RU:
     ///Оборачивает выполнение `body` в `do-catch`. Возвращается `Either.left` если `body` вернул исключение.
-    init(catching body: () throws(Left) -> Right) {
+    init(catching body: () throws(Left) -> Right) where Left: Error {
         do {
             self = .right(try body())
         } catch let error {
@@ -24,7 +24,7 @@ public extension Either {
     ///
     ///###### RU:
     ///Оборачивает выполнение `body` в `do-catch`. Возвращается `Either.left` если `body` вернул исключение.
-    init(catching body: () async throws(Left) -> Right) async {
+    init(catching body: () async throws(Left) -> Right) async where Left: Error {
         do {
             self = .right(try await body())
         } catch let error {
